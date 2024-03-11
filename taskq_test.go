@@ -61,7 +61,7 @@ func newCtrl[Data any](c *redis.Client, opts ...ctrlOptionFunc) qCtrl[Data] {
 	out := make(chan Data, 1)
 	outErr := make(chan error, 1)
 	added, stopped := make(chan struct{}), make(chan struct{})
-	tq := NewTaskQ(
+	tq := New(
 		context.Background(),
 		"test-queue",
 		c,

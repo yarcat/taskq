@@ -85,8 +85,8 @@ type (
 	}
 )
 
-// NewTaskQ returns a new task queue.
-func NewTaskQ[T any](ctx context.Context, key string, c *redis.Client, f TaskHandlerFunc[T], opts ...OptionFunc) *TaskQ[T] {
+// New returns a new task queue.
+func New[T any](ctx context.Context, key string, c *redis.Client, f TaskHandlerFunc[T], opts ...OptionFunc) *TaskQ[T] {
 	var opt options
 	for _, o := range opts {
 		o(&opt)

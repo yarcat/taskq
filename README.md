@@ -35,8 +35,8 @@ func main() {
 
 	c := redis.NewClient(&redis.Options{
 		Addr: "localhost:6379",
-        // Use a different DB for each task queue to avoid conflicts.
-        // DB: 12,
+		// Use a different DB for each task queue to avoid conflicts.
+		// DB: 12,
 	})
 
 	h := &MyHandler{

@@ -3,10 +3,12 @@ package taskq_test
 import (
 	"context"
 	"fmt"
+	"log"
 	"sync"
 	"sync/atomic"
 	"time"
 
+	"github.com/alicebob/miniredis/v2"
 	"github.com/redis/go-redis/v9"
 	"github.com/yarcat/taskq"
 )
@@ -37,10 +39,16 @@ func stopAfterIterations(n int64) func() bool {
 }
 
 func Example() {
+	s, err := miniredis.Run()
+	if err != nil {
+		log.Fatalf("Failed to start miniredis: %v", err)
+	}
+	defer s.Close()
+
 	ctx := context.Background()
 
 	client := redis.NewClient(&redis.Options{
-		Addr: "172.21.169.52:6379",
+		Addr: s.Addr(),
 		// This example creates "my" and "my-processing" keys in Redis.
 		// Consider using a different redis.Options.DB to avoid conflicts.
 		// DB: 12,
